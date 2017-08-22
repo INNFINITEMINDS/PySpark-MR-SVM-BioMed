@@ -24,3 +24,13 @@ Read in the raw data file "pheno_exp.txt". Normalize the raw data, conduct PCA a
 b) ml_svm.py
 
 Take in the output of step a and train the SVM model using PySpark.
+
+3. Common utility programs
+
+a) cv_div_dataset.py
+
+Generate cross-validation files for validation of models.
+
+b) svm_dens_vec.py
+
+SVM model using a dense vector input file.
