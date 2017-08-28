@@ -15,22 +15,37 @@ c) cal_freq.py
 
 Pyspark code to read in individual vcf files and count the occurrence of any genotype at each SNP locus, and output genotype frequencies according to sorted SNP positions for possible downstream analyses such as computing allele frequencies and discovering rare mutations.
 
-2. The second applicaiton case is an SVM machine learning model to distinguish between cancer and normal samples from microarray data. Because the gene number (>10000) is much higher than the sample number (102). Dimmension reduction is required to avoid overfitting.
+2. The second applicaiton case is an SVM machine learning model to classify tumor and normal samples from microarray data. Because the gene number (>10000) is much higher than the sample number (102). Dimmension reduction is required to avoid overfitting.
 
-a) ml_pca.py
+a) raw_div_dataset.py
 
-Read in the raw data file "pheno_exp.txt". Normalize the raw data, conduct PCA and output the first 10 components as a matrix, with first column being the label and others being features.
+Divide a data file (format:1st row: sample IDs, 2nd row: sample class, 1st column: feature Ids, others: feature values) like "pheno_exp.txt" into training and prediction data files according to a partition ratio. 
 
-b) ml_svm.py
+b) convert_train_data.py
 
-Take in the output of step a and train the SVM model using PySpark.
+Convert the training data into labeledpoint features with scaling and PCA implemented.
 
-3. Common utility programs
+c) convert_pred_data.py 
 
-a) cv_div_dataset.py
+Convert the prediciton data into dense vector features using the scaling and PCA rules established on the training data.
+
+d) cv_div_dataset.py
 
 Generate cross-validation files for validation of models.
 
-b) svm_dens_vec.py
+e) execute_cv_svm.py
 
-SVM model using a dense vector input file.
+Iteratively run SVM models on the cross-validation datasets.
+
+f) train_svm.py
+
+Train a SVM model with SGD using labeledpoint (dense vector required) data.
+
+g) test_svm.py
+
+Test an SVM model on testing data (labeledpoint data with dense vector).
+
+h) predict_svm.py
+
+Make predictions using an SVM model on dense vector data (1st column contains IDs)
+
